@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: "1Gi"
+  storageClassName: static-storage-class
+  hostPath:
+    path: /mnt/mysql-backup
+  persistentVolumeReclaimPolicy: Retain
+  # nodeAffinity:
+  #   required:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #           - key: kubernetes.io/hostname
+  #             operator: In
+  #             values:
+  #               - kind-cluster1-worker2

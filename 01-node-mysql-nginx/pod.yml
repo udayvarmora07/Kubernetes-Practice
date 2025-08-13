@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-pod
+  labels:
+    app: my-webapp
+spec:
+  containers:
+    - name: node-nginx
+      image: uday0710/nginx-pm2-node:01
+      env:
+        - name: database-name
+          valueFrom:
+            configMapKeyRef:
+              name: webapp-configmap
+              key: database_name
+      volumeMounts:
+        - mountPath: "/var/www/html"
+          name: nginx-root-files
+    - name: mysql
+      image: mysql:latest
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webapp-secret
+              key: database_password
+  volumes:
+    - name: nginx-root-files
+      persistentVolumeClaim:
+        claimName: webapp-pvc

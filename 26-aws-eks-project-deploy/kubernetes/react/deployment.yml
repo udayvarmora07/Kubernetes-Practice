@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+        - name: frontend
+          image: uday0710/react-frontend:10
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      resources:
+            requests:
+              cpu: "200m"
+            limits:
+              cpu: "500m"

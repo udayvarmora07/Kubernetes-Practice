@@ -1,0 +1,79 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: liveness-deployment
+# spec:
+#   selector: 
+#     matchLabels:
+#       app: liveness-exp
+#   template:
+#     metadata:
+#       name: liveness-pod
+#       labels:
+#         app: liveness-exp
+#     spec:
+#       containers:
+#       - name: nginx-container
+#         image: nginx
+#         ports:
+#         - containerPort: 80
+#         livenessProbe:
+#           httpGet:
+#             path: /healthz
+#             port: 80
+#           initialDelaySeconds: 5
+#           periodSeconds: 60
+
+# ----------------------------------------------------------------------------
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: myapp-deployment
+# spec:
+#   selector:
+#     matchLabels:
+#       app: myapp
+#   template:
+#     metadata:
+#       labels:
+#         app: myapp
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: nginx
+#         ports:
+#         - containerPort: 80
+#         livenessProbe:  
+#           tcpSocket:
+#             port: 80
+#           initialDelaySeconds: 10
+#           periodSeconds: 10
+
+# ----------------------------------------------------------------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        livenessProbe:  
+          exec:
+            command:
+            - cat
+            - /usr/share/nginx/html/abc.html
+          initialDelaySeconds: 10
+          periodSeconds: 60

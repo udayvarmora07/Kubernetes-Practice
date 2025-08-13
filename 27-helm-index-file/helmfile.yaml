@@ -1,0 +1,13 @@
+---
+releases:
+  - name: mysql
+    chart: ./mysqldb
+    installed: true
+  
+  - name: node
+    chart: ./backend
+    installed: true
+  
+  - name: react
+    chart: ./frontend
+    installed: true

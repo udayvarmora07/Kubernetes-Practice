@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: database-backup-cronjob
+spec:
+  schedule: "2 7 * * *" # Use UTC time because in kind worker node container there are UTC timings
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          containers:
+            - name: db-backup
+              image: busybox:latest
+              command: ["sh", "-c", "echo Database backup processing...; sleep 10; echo database backup done."]
+          restartPolicy: Never

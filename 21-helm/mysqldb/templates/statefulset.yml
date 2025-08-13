@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mysqldb.fullname" . }}-statefulset
+spec:
+  replicas: 1
+  serviceName: headless-service
+  selector:
+    matchLabels:
+      {{- include "mysqldb.selectorLabels" . | nindent 6 }}
+      app: mysql
+  template:
+    metadata:
+      labels:
+        {{- include "mysqldb.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: MYSQL_ROOT_PASSWORD
+                  name: {{ include "mysqldb.fullname" . }}-my-secret
+          ports:
+            - containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-volume
+      # nodeName: {{ .Values.nodeName }}
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-volume
+      spec:
+        accessModes:
+          - {{ .Values.PersistentVolume.accessModes }}
+        storageClassName: {{ include "mysqldb.fullname" . }}-storage-class
+        resources:
+          requests:
+            storage: {{ .Values.PersistentVolume.capacity | quote }}

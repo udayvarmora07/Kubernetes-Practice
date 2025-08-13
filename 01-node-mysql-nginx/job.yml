@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: busybox
+          image: busybox:latest
+          command: ["sh", "-c", "echo Processing data...; sleep 10; echo Processing Done."]
+      restartPolicy: OnFailure
+  backoffLimit: 3

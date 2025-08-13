@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: uv-cluster
+  region: ap-south-1
+nodeGroups:
+  - name: uv-node-group
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 4
+    privateNetworking: true
+    ssh:
+      allow: true
+      publicKeyPath: /home/uday/.ssh/ec2_rsa.pub
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        externalDNS: true
+        appMesh: true
+        albIngress: true

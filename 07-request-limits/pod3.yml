@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-pod3
+  namespace: mem-example
+spec:
+  containers:
+    - name: polinux-container3
+      image: polinux/stress
+      resources:
+        requests:
+          memory: "1000Gi"
+        limits:
+          memory: "1000Gi"

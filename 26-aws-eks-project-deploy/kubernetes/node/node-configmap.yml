@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-configmap
+data:
+  MYSQL_HOST7: database-1.cbwaeykesql2.ap-south-1.rds.amazonaws.com
+  MYSQL_DATABASE7: tutorial

@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "mysqldb.fullname" . }}-storage-class
+provisioner: {{ .Values.storageclass.provisioner }}
+reclaimPolicy: {{ .Values.storageclass.reclaimPolicy }}
+allowVolumeExpansion: {{ .Values.storageclass.allowVolumeExpansion }}
+volumeBindingMode: {{ .Values.storageclass.volumeBindingMode }}

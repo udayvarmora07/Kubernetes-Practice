@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: StorageClass
+metadata:
+  name: webapp-storage-class
+provisioner: kubernetes.io/aws-ebs
+parameter:
+  type: gp3

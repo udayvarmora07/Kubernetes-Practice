@@ -1,0 +1,6 @@
+apiVersion: uday.com/v1
+kind: CustomConfigMap
+metadata:
+  name: my-customconfigmap
+spec:
+  data: "This is my crd's custom resource"

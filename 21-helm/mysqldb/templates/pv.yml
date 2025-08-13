@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "mysqldb.fullname" . }}-pv
+spec:
+  accessModes:
+    - {{ .Values.PersistentVolume.accessModes }}
+  capacity:
+    storage: {{ .Values.PersistentVolume.capacity | quote }}
+  storageClassName: {{ include "mysqldb.fullname" . }}-storage-class
+  hostPath:
+    path: {{ .Values.PersistentVolume.hostPath.path }}
+  persistentVolumeReclaimPolicy: {{ .Values.PersistentVolume.persistentVolumeReclaimPolicy }}
+  # nodeAffinity:
+  #   required:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #           - key: kubernetes.io/hostname
+  #             operator: In
+  #             values:
+  #               - kind-cluster1-worker2
