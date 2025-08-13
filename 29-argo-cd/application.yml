@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/udayvarmora07/Kubernetes-Practice.git
     targetRevision: HEAD
-    path: 21-helm/mysqldb
+    path: 01-node-mysql-nginx/deployment.yml
   syncPolicy:
     automated:
       selfHeal: true

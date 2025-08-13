@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ include "mysqldb.fullname" . }}-statefulset
 spec:
-  replicas: 3
+  replicas: 1
   serviceName: headless-service
   selector:
     matchLabels:
